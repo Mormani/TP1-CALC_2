@@ -3,7 +3,7 @@
     const prompt = require("prompt");
 
     const dados = [
-        { name: "eq",
+        { name: "str_eq",
             description: "Equação                          ",
             type: "string",
             required: true,
@@ -20,28 +20,23 @@
         },
         { name: "n",
             description: "Quantidade de sub-intervalos  (n)",
-            // type: "number",
-            pattern: /^(?!0+$)\d+$/,
+            type: "number",
+            // pattern: /^(?!0+$)\d+$/,
             warning: "Somente números naturais são permitidos",
             required: true,
         },
     ];
 
     prompt.start();
-    // const { eq, a, b, n } = await prompt.get(dados);
-    const teste = await prompt.get(dados);
+    const { str_eq, a, b, n } = await prompt.get(dados);
 
-    console.log(teste);
+    const eq = mathjs.compile(str_eq);
+    const opcoes = {
+        a: mathjs.compile(a).evaluate(),
+        b: mathjs.compile(b).evaluate(),
+        n
+    };
 
-
-
-    // const eq = mathjs.compile("e^x");
-    // const opcoes = {
-    //     a: 3,
-    //     b: 4,
-    //     n: 1,
-    // };
-
-    // const resultado = riemann_sum_integral(eq, opcoes);
-    // console.log(resultado);
+    const resultado = riemann_sum_integral(eq, opcoes);
+    console.log(resultado);
 })();
