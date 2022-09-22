@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "node index.js < test.in"
+    "test": "node index.js < test.in",
+    "sm": "node index.js --suppress-init-msg"
   },
   "author": "Mormani",
   "license": "ISC",

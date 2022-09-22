@@ -76,6 +76,8 @@ const { mathjs, riemann_sum, calc_num } = require("./riemann.js");
         },
     ];
 
+    initialMsg();
+
     prompt.start();
     const { str_eq, a, b, n } = await prompt.get(dados);
 
