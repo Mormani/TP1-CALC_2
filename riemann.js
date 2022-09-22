@@ -1,4 +1,4 @@
-const { mathCompileError } = require("./tratar_erros.js");
+const { mathCompileError } = require("./handle-erro.js");
 
 const { create, all } = require("mathjs");
 const mathjs = create(all, {});

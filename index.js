@@ -1,9 +1,8 @@
 const prompt = require("prompt");
-const { mathCompileError, initialMsg } = require("./tratar_erros.js");
+const { mathCompileError, initialMsg } = require("./handle-erro.js");
 const { mathjs, riemann_sum, calc_num } = require("./riemann.js");
 
 (async function() {
-
     const dados = [
         { name: "str_eq",
             description: "Equação                          ",
