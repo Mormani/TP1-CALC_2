@@ -2,7 +2,7 @@ const colors = require("@colors/colors");
 
 colors.setTheme({
     c_ok: ["brightGreen", "bold"],
-    c_err: ["brightRed", "bold"],
+    c_err: ["red", "bold"],
     c_warn: ["brightYellow", "bold"],
     m_cy: ["brightCyan", "bold"],
     m_link: ["cyan", "underline", "italic"],
@@ -11,6 +11,7 @@ colors.setTheme({
 function mathCompileError(e, str) {
     process.stdout.write(e.message);
 
+    // Caso haja indicação do caractere que causou o erro, formata uma saída para destacá-lo.
     if (e.char ?? false) {
         const pos = e.char;
 
@@ -49,7 +50,7 @@ function initialMsg() {
 ∫
 ∫ ${li} ${"Funções Logarítmicas   :".gray} log(x, ${"a".m_cy}), log(x, 10), log(x, 2), log(x)
 ∫
-∫   Quando omiti-se a base (${"a".m_cy}), é calculado o ${"logaritmo natural".c_warn} de x.
+∫   Quando omite-se a base (${"a".m_cy}), é calculado o ${"logaritmo natural".c_warn} de x.
 ∫   Ex.: ${"✓ log(e) = 1".c_ok}       ${"× ln(e) = 1".c_err}
 ∫        ${"✓ log(2) = 0.693".c_ok}   ${"× ln(2) = 0.693".c_err}
 ∫
