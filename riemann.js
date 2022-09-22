@@ -1,9 +1,9 @@
-const { parse_erro_math } = require("./tratar_erros.js");
+const { mathCompileError } = require("./tratar_erros.js");
 
 const { create, all } = require("mathjs");
 const mathjs = create(all, {});
 
-function sum_integral(equacao, { a, b, n }) {
+function riemann_sum(equacao, { a, b, n }) {
     /** Flag para calcular a integral mesmo que `b` seja menor que `a`.
      *
      *  Invertendo tanto o cálculo de `delta_x` quanto o termo que
@@ -30,16 +30,16 @@ function sum_integral(equacao, { a, b, n }) {
     return resultado;
 }
 
-function calcular_num(str, print_erro = true) {
+function calc_num(str, print_erro = true) {
     try {
         const num = mathjs.compile(str).evaluate();
         return num;
 
     } catch (error) {
-        if (print_erro) parse_erro_math(error, str);
+        if (print_erro) mathCompileError(error, str);
     }
 }
 
 exports.mathjs = mathjs;
-exports.sum_integral = sum_integral;
-exports.calcular_num = calcular_num;
+exports.riemann_sum = riemann_sum;
+exports.calc_num = calc_num;

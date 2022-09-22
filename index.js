@@ -1,7 +1,8 @@
+const prompt = require("prompt");
+const { mathCompileError, initialMsg } = require("./tratar_erros.js");
+const { mathjs, riemann_sum, calc_num } = require("./riemann.js");
+
 (async function() {
-    const prompt = require("prompt");
-    const { bold_colorize, parse_erro_math } = require("./tratar_erros.js");
-    const { mathjs, sum_integral, calcular_num } = require("./riemann.js");
 
     const dados = [
         { name: "str_eq",
@@ -14,7 +15,7 @@
                     mathjs.compile(_eq);
                     return true;
                 } catch (error) {
-                    parse_erro_math(error, _eq);
+                    mathCompileError(error, _eq);
                     return false;
                 }
             }
@@ -29,7 +30,7 @@
                 // BUG: Editei o código-fonte do revalidate.js para receber o `schema`
                 // como parâmetro e assim editar a mensagem de erro.
                 let msg = "";
-                const valor_a = calcular_num(_a);
+                const valor_a = calc_num(_a);
 
                 if (!mathjs.isNumber(valor_a)) {
                     msg = `Limite Inferior ${bold_colorize("deve ser um valor númerico")}\n`;
@@ -40,7 +41,7 @@
                 schema.message = msg;
                 return false;
             },
-            before: function (valor) { return calcular_num(valor, false); }
+            before: function (valor) { return calc_num(valor, false); }
         },
         { name: "b",
             description: "Limite Superior de Integração (b)",
@@ -52,7 +53,7 @@
                 // BUG: Editei o código-fonte do revalidate.js para receber o `schema`
                 // como parâmetro e assim editar a mensagem de erro.
                 let msg = "";
-                const valor_b = calcular_num(_b);
+                const valor_b = calc_num(_b);
 
                 if (!mathjs.isNumber(valor_b)) {
                     msg = `Limite Superior ${bold_colorize("deve ser um valor númerico")}\n`;
@@ -63,7 +64,7 @@
                 schema.message = msg;
                 return false;
             },
-            before: function (valor) { return calcular_num(valor, false); }
+            before: function (valor) { return calc_num(valor, false); }
         },
         { name: "n",
             description: "Quantidade de sub-intervalos  (n)",

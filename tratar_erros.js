@@ -4,7 +4,7 @@ function bold_colorize(str, color = "red") {
     return colors.bold( colors[color](str) );
 }
 
-function parse_erro_math(e, str) {
+function mathCompileError(e, str) {
     process.stdout.write(e.message);
 
     if (e.char ?? false) {
@@ -19,5 +19,4 @@ function parse_erro_math(e, str) {
     }
 }
 
-exports.bold_colorize = bold_colorize;
-exports.parse_erro_math = parse_erro_math;
+exports.mathCompileError = mathCompileError;
