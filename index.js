@@ -10,9 +10,10 @@ const { mathjs, riemann_sum, calc_num } = require("./riemann.js");
             type: "string",
             allowEmpty: false,
             required: true,
+            message: `Equação ${"inválida".c_err}\n`,
             conform: function (_eq, o, schema) {
                 try {
-                    mathjs.compile(_eq);
+                    mathjs.compile(_eq).evaluate({x: 0});
                     return true;
                 } catch (error) {
                     mathCompileError(error, _eq);
@@ -25,7 +26,7 @@ const { mathjs, riemann_sum, calc_num } = require("./riemann.js");
             type: "string",
             allowEmpty: false,
             required: true,
-            message: `Limite Inferior ${bold_colorize("inválido")}\n`,
+            message: `Limite Inferior ${"inválido".c_err}\n`,
             conform: function (_a, o, schema) {
                 // BUG: Editei o código-fonte do revalidate.js para receber o `schema`
                 // como parâmetro e assim editar a mensagem de erro.
@@ -33,7 +34,7 @@ const { mathjs, riemann_sum, calc_num } = require("./riemann.js");
                 const valor_a = calc_num(_a);
 
                 if (!mathjs.isNumber(valor_a)) {
-                    msg = `Limite Inferior ${bold_colorize("deve ser um valor númerico")}\n`;
+                    msg = `Limite Inferior ${"deve ser um valor númerico".c_err}\n`;
                 }  else {
                     return true;
                 }
@@ -48,7 +49,7 @@ const { mathjs, riemann_sum, calc_num } = require("./riemann.js");
             type: "string",
             allowEmpty: false,
             required: true,
-            message: `Limite Superior ${bold_colorize("inválido")}\n`,
+            message: `Limite Superior ${"inválido".c_err}\n`,
             conform: function (_b, o, schema) {
                 // BUG: Editei o código-fonte do revalidate.js para receber o `schema`
                 // como parâmetro e assim editar a mensagem de erro.
@@ -56,7 +57,7 @@ const { mathjs, riemann_sum, calc_num } = require("./riemann.js");
                 const valor_b = calc_num(_b);
 
                 if (!mathjs.isNumber(valor_b)) {
-                    msg = `Limite Superior ${bold_colorize("deve ser um valor númerico")}\n`;
+                    msg = `Limite Superior ${"deve ser um valor númerico".c_err}\n`;
                 } else {
                     return true;
                 }
@@ -71,7 +72,7 @@ const { mathjs, riemann_sum, calc_num } = require("./riemann.js");
             type: "number",
             minimum: 1,
             required: true,
-            message: `Somente ${bold_colorize("números naturais não nulos")} são permitidos\n`,
+            message: `Somente ${"números naturais não nulos".c_err} são permitidos\n`,
         },
     ];
 
@@ -81,6 +82,6 @@ const { mathjs, riemann_sum, calc_num } = require("./riemann.js");
     const equacao = mathjs.compile(str_eq).evaluate;
     const opcoes = { a, b, n };
 
-    const resultado = sum_integral(equacao, opcoes);
-    console.log(`\n       ${b}\nÁrea = ∫ ( ${str_eq} ) = ${bold_colorize(resultado, "green")}\n       ${a}`);
+    const resultado = String(riemann_sum(equacao, opcoes));
+    console.log(`\n       ${b}\nÁrea = ∫ ( ${str_eq} ) = ${resultado.c_ok}\n       ${a}`);
 })();

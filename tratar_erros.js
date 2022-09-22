@@ -1,8 +1,12 @@
-const colors = require("@colors/colors/safe");
+const colors = require("@colors/colors");
 
-function bold_colorize(str, color = "red") {
-    return colors.bold( colors[color](str) );
-}
+colors.setTheme({
+    c_ok: ["brightGreen", "bold"],
+    c_err: ["brightRed", "bold"],
+    c_warn: ["brightYellow", "bold"],
+    m_cy: ["brightCyan", "bold"],
+    m_link: ["cyan", "underline", "italic"],
+});
 
 function mathCompileError(e, str) {
     process.stdout.write(e.message);
@@ -10,8 +14,8 @@ function mathCompileError(e, str) {
     if (e.char ?? false) {
         const pos = e.char;
 
-        const info = bold_colorize(`Erro no caractere ${pos}`, "yellow");
-        str = str.substring(0, pos - 1) + bold_colorize(str.substring(pos - 1));
+        const info = `Erro no caractere ${pos}`.c_warn;
+        str = str.substring(0, pos - 1) + str.substring(pos - 1).c_warn;
 
         console.log(` | ${info}: ${str}`);
     } else {
